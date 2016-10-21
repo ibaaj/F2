@@ -17,17 +17,7 @@ const int EXP_MERSENNE_PIRME64[] = {2,3,5,7,13,17,19,31,61 }; // 2^m - 1 prime
 // retourner l'index du "MSB" (most significant bit)
 f2_deg_t f2_poly_deg(f2_poly_t pol)
 {
-  f2_deg_t b = 0;
-  uint64_t n = pol;
-
-  if (!n)
-    return 0;
-
-  #define step(x) if (n >= ((uint64_t)1) << x) b += x, n >>= x
-  step(32); step(16); step(8); step(4); step(2); step(1);
-  #undef step
-
-  return b;
+  return 63 - __builtin_clzl(pol);
 
 }
 
